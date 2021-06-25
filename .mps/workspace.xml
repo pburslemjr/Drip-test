@@ -6,7 +6,9 @@
     </option>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fce21748-3ccd-4f2b-be47-4473c08d1a9b" name="Default Changelist" comment="" />
+    <list default="true" id="fce21748-3ccd-4f2b-be47-4473c08d1a9b" name="Default Changelist" comment="CWS&#10;  - Added Files">
+      <change beforePath="$PROJECT_DIR$/.mps/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.mps/workspace.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/solutions/CollisionWarningSystem/classes_gen/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +30,7 @@
         <TabState>
           <option name="title" value="Console" />
           <tab>
-            <model ref="7e5455e2-0629-41f2-9b9e-4a9500120033/r:d8ca4255-54e1-4a3b-bd97-1ab1d6073239(TempModule7e5455e2-0629-41f2-9b9e-4a9500120033/TempModel_1122316791306)">
+            <model ref="37595c9c-f3f3-4489-8085-ed9cf0604150/r:a37d6833-f354-45eb-ab33-5cfc406acba6(TempModule37595c9c-f3f3-4489-8085-ed9cf0604150/TempModel_3512008528138)">
               <persistence version="9" />
               <languages>
                 <devkit ref="70d3d6da-af63-483d-a75f-9c8acf8de332(jetbrains.mps.console.devkit)" />
@@ -48,11 +50,11 @@
                   <concept id="757553790980850366" name="jetbrains.mps.console.base.structure.History" flags="ng" index="3balQm" />
                 </language>
               </registry>
-              <node concept="aymSD" id="2aShSF$t5e5">
-                <node concept="3balQm" id="2aShSF$t5e6" role="aymYE" />
-                <node concept="2Clz$F" id="2aShSF$t5e7" role="aymYO" />
-                <node concept="2_V_lH" id="2aShSF$t5e8" role="1PhJh3">
-                  <ref role="2_V_lI" node="2aShSF$t5e7" resolve="CommandHolder" />
+              <node concept="aymSD" id="5kSFG8GYxbq">
+                <node concept="3balQm" id="5kSFG8GYxbr" role="aymYE" />
+                <node concept="2Clz$F" id="5kSFG8GYxbs" role="aymYO" />
+                <node concept="2_V_lH" id="5kSFG8GYxbt" role="1PhJh3">
+                  <ref role="2_V_lI" node="5kSFG8GYxbs" resolve="CommandHolder" />
                 </node>
               </node>
             </model>
@@ -152,15 +154,20 @@
           <entry key="project.closed" value="3" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.2" value="1" />
-          <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.5" value="2" />
+          <entry key="project.opened" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.vcs.git.usages">
+        <counts>
+          <entry key="git.branch.create.new" value="1" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
         <entry file="mps://node://CollisionWarningSystem/CollisionWarningSystem.CWS/CWSsystem">
           <provider selected="true" editor-type-id="MPSFileEditor">
             <state class="jetbrains.mps.ide.editor.BaseNodeEditor$BaseEditorState">
@@ -168,11 +175,11 @@
                 <selectionStack>
                   <stackElement className="jetbrains.mps.nodeEditor.selection.EditorCellLabelSelection">
                     <property name="hasNonTrivialSelection" value="false" />
-                    <property name="caretX" value="167" />
+                    <property name="caretX" value="15" />
                     <property name="caretXRelative" value="0" />
                     <property name="sideSelectDirection" value="NONE" />
-                    <cellInfo cellId="property_name">
-                      <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/2822000231290412536" />
+                    <cellInfo cellId="Constant_ga6fyx_c0">
+                      <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/2822000231290412519" />
                     </cellInfo>
                   </stackElement>
                 </selectionStack>
@@ -190,21 +197,65 @@
                     </cellIdElement>
                   </collapsedElement>
                 </foldable>
-                <restoreAlways>
-                  <collapsedElement isCollapsed="false">
-                    <cellIdElement cellId="Collection_amz5b0_a">
-                      <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/2822000231290412536" />
-                    </cellIdElement>
-                  </collapsedElement>
-                </restoreAlways>
+                <restoreAlways />
               </memento>
-              <inspectorMemento currentlyEditedNode="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/2822000231290412536" saveSessionState="false" viewPositionX="0" viewPositionY="0">
+              <inspectorMemento currentlyEditedNode="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512678" saveSessionState="false" viewPositionX="0" viewPositionY="0">
                 <selectionStack />
                 <errorMarkers />
                 <transactionalProperties />
                 <foldable />
                 <restoreAlways />
                 <enabledHints>
+                  <enabledHintsElement enabledHintsAttribute="info.engineeredmechatronics.dri.req.editor.driHints.DRIP" />
+                  <enabledHintsElement enabledHintsAttribute="de.slisson.mps.conditionalEditor.hints.editor.conditionalEditorHints.conditionalEditor_doNotUseThisHint" />
+                  <enabledHintsElement enabledHintsAttribute="de.slisson.mps.conditionalEditor.hints.editor.conditionalEditorHints.conditionalEditor" />
+                </enabledHints>
+              </inspectorMemento>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="mps://node://CollisionWarningSystem/CollisionWarningSystem.CWS/CWSReqs">
+          <provider selected="true" editor-type-id="MPSFileEditor">
+            <state class="jetbrains.mps.ide.editor.BaseNodeEditor$BaseEditorState">
+              <memento saveSessionState="false" viewPositionX="0" viewPositionY="482">
+                <selectionStack>
+                  <stackElement className="jetbrains.mps.nodeEditor.selection.EditorCellLabelSelection">
+                    <property name="hasNonTrivialSelection" value="false" />
+                    <property name="caretX" value="236" />
+                    <property name="caretXRelative" value="150" />
+                    <property name="sideSelectDirection" value="NONE" />
+                    <cellInfo cellId="property_summmary">
+                      <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512678" />
+                    </cellInfo>
+                  </stackElement>
+                </selectionStack>
+                <errorMarkers />
+                <transactionalProperties />
+                <foldable>
+                  <collapsedElement isCollapsed="false">
+                    <cellIdElement cellId="refNodeList_details">
+                      <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512658" />
+                    </cellIdElement>
+                  </collapsedElement>
+                </foldable>
+                <restoreAlways>
+                  <collapsedElement isCollapsed="false">
+                    <cellIdElement cellId="refNodeList_details">
+                      <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512658" />
+                    </cellIdElement>
+                  </collapsedElement>
+                </restoreAlways>
+              </memento>
+              <inspectorMemento currentlyEditedNode="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512678" saveSessionState="false" viewPositionX="0" viewPositionY="0">
+                <selectionStack />
+                <errorMarkers />
+                <transactionalProperties />
+                <foldable />
+                <restoreAlways />
+                <enabledHints>
+                  <enabledHintsElement enabledHintsAttribute="info.engineeredmechatronics.dri.req.editor.driHints.DRIP" />
                   <enabledHintsElement enabledHintsAttribute="de.slisson.mps.conditionalEditor.hints.editor.conditionalEditorHints.conditionalEditor_doNotUseThisHint" />
                   <enabledHintsElement enabledHintsAttribute="de.slisson.mps.conditionalEditor.hints.editor.conditionalEditorHints.conditionalEditor" />
                 </enabledHints>
@@ -216,7 +267,17 @@
     </leaf>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$USER_HOME$" />
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Paul" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="MPSBookmarkManager">
     <option name="myBookmarkInfos">
@@ -578,10 +639,50 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Favorites" />
-      <pane id="FileSystem" />
       <pane id="ProjectPane">
         <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="9030d978-d785-434d-bb19-e695a8115369" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CollisionWarningSystem" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="9030d978-d785-434d-bb19-e695a8115369" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CollisionWarningSystem" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS) in IdeaFile[file:///home/paul/DRIPSamples.3.0.6.f/CollisionWarningSystem/solutions/CollisionWarningSystem/models/CollisionWarningSystem/CWS.mps]" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rdk" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="Project" />
@@ -605,18 +706,8 @@
               <option name="myItemId" value="Project" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Project" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="9030d978-d785-434d-bb19-e695a8115369" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CollisionWarningSystem" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
@@ -639,16 +730,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="architectures" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Project" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="9030d978-d785-434d-bb19-e695a8115369" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
@@ -670,16 +751,18 @@
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="architectures" />
+              <option name="myItemId" value="rdk" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="2822000231290412519" />
+              <option name="myItemId" value="8613478698910512653" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </SELECTED>
         </subPane>
       </pane>
+      <pane id="FileSystem" />
+      <pane id="Favorites" />
       <pane id="CustomProjectView_info.engineeredmechatronics.dri.req.pluginSolution.plugin.DripProjectView">
         <subPane />
       </pane>
@@ -716,7 +799,7 @@
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22080797" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22357498" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -734,14 +817,14 @@
       <window_info anchor="bottom" id="Chart" order="13" />
       <window_info anchor="bottom" id="Event Log" order="14" sideWeight="0.71973467" side_tool="true" weight="0.18149883" />
       <window_info anchor="bottom" id="Classpath Explorer" order="15" />
-      <window_info anchor="bottom" id="Documentation" order="16" sideWeight="0.41072416" visible="true" weight="0.31506848" />
+      <window_info anchor="bottom" id="Documentation" order="16" sideWeight="0.41072416" weight="0.31612223" />
       <window_info anchor="bottom" id="Usages" order="17" sideWeight="0.498618" weight="0.32876712" />
       <window_info anchor="bottom" id="Node Explorer" order="18" sideWeight="0.4997236" weight="0.32969433" />
       <window_info anchor="bottom" id="Module Dependencies" order="19" />
       <window_info anchor="bottom" id="Generation Tracer" order="20" />
       <window_info anchor="bottom" id="Cell Explorer" order="21" />
       <window_info anchor="bottom" id="Typechecker State" order="22" />
-      <window_info anchor="bottom" id="Version Control" order="23" sideWeight="0.4997236" weight="0.19283456" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="23" sideWeight="0.4997236" visible="true" weight="0.19283456" />
       <window_info anchor="bottom" id="Messages" order="24" sideWeight="0.6025428" weight="0.21074815" />
       <window_info anchor="bottom" id="Console" order="25" weight="0.32876712" />
       <window_info anchor="bottom" id="RefactoringView" order="26" />
@@ -2966,6 +3049,32 @@
       <options category_option="false" module_option="true" model_option="true" root_option="true" path_option="false" count_option="true" info_option="true" view_searched_nodes_option="true" group_searched_nodes_option="true" autoscroll_option="false" />
     </default_view_options>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -2975,7 +3084,8 @@
     <MESSAGE value="Ros&#10; - Ros module&#10; - Mapping&#10; - Test Case&#10; - Test (first step)" />
     <MESSAGE value="Ros&#10; - Updated Test Case with HLRs" />
     <MESSAGE value="CWS&#10;  - New topic sync" />
-    <option name="LAST_COMMIT_MESSAGE" value="CWS&#10;  - New topic sync" />
+    <MESSAGE value="CWS&#10;  - Added Files" />
+    <option name="LAST_COMMIT_MESSAGE" value="CWS&#10;  - Added Files" />
   </component>
   <component name="editorHistoryManager">
     <entry file="mps://node://CollisionWarningSystem/CollisionWarningSystem.CWS/&lt;no name&gt;[MappingChunk]" />
@@ -3151,52 +3261,6 @@
               <collapsedElement isCollapsed="false">
                 <cellIdElement cellId="Collection_g8b7hx_a">
                   <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/1862676754575460663" />
-                </cellIdElement>
-              </collapsedElement>
-            </restoreAlways>
-          </memento>
-          <inspectorMemento currentlyEditedNode="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/5832176061382415165" saveSessionState="false" viewPositionX="0" viewPositionY="0">
-            <selectionStack />
-            <errorMarkers />
-            <transactionalProperties />
-            <foldable />
-            <restoreAlways />
-            <enabledHints>
-              <enabledHintsElement enabledHintsAttribute="de.slisson.mps.conditionalEditor.hints.editor.conditionalEditorHints.conditionalEditor_doNotUseThisHint" />
-              <enabledHintsElement enabledHintsAttribute="de.slisson.mps.conditionalEditor.hints.editor.conditionalEditorHints.conditionalEditor" />
-            </enabledHints>
-          </inspectorMemento>
-        </state>
-      </provider>
-    </entry>
-    <entry file="mps://node://CollisionWarningSystem/CollisionWarningSystem.CWS/CWSReqs">
-      <provider selected="true" editor-type-id="MPSFileEditor">
-        <state class="jetbrains.mps.ide.editor.BaseNodeEditor$BaseEditorState">
-          <memento saveSessionState="false" viewPositionX="0" viewPositionY="0">
-            <selectionStack>
-              <stackElement className="jetbrains.mps.nodeEditor.selection.EditorCellLabelSelection">
-                <property name="hasNonTrivialSelection" value="false" />
-                <property name="caretX" value="247" />
-                <property name="caretXRelative" value="16" />
-                <property name="sideSelectDirection" value="NONE" />
-                <cellInfo cellId="property_escapedValue_word39">
-                  <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/7355530221775218224" />
-                </cellInfo>
-              </stackElement>
-            </selectionStack>
-            <errorMarkers />
-            <transactionalProperties />
-            <foldable>
-              <collapsedElement isCollapsed="false">
-                <cellIdElement cellId="refNodeList_details">
-                  <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512658" />
-                </cellIdElement>
-              </collapsedElement>
-            </foldable>
-            <restoreAlways>
-              <collapsedElement isCollapsed="false">
-                <cellIdElement cellId="refNodeList_details">
-                  <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512658" />
                 </cellIdElement>
               </collapsedElement>
             </restoreAlways>
@@ -3665,11 +3729,11 @@
             <selectionStack>
               <stackElement className="jetbrains.mps.nodeEditor.selection.EditorCellLabelSelection">
                 <property name="hasNonTrivialSelection" value="false" />
-                <property name="caretX" value="167" />
+                <property name="caretX" value="15" />
                 <property name="caretXRelative" value="0" />
                 <property name="sideSelectDirection" value="NONE" />
-                <cellInfo cellId="property_name">
-                  <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/2822000231290412536" />
+                <cellInfo cellId="Constant_ga6fyx_c0">
+                  <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/2822000231290412519" />
                 </cellInfo>
               </stackElement>
             </selectionStack>
@@ -3687,21 +3751,63 @@
                 </cellIdElement>
               </collapsedElement>
             </foldable>
-            <restoreAlways>
-              <collapsedElement isCollapsed="false">
-                <cellIdElement cellId="Collection_amz5b0_a">
-                  <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/2822000231290412536" />
-                </cellIdElement>
-              </collapsedElement>
-            </restoreAlways>
+            <restoreAlways />
           </memento>
-          <inspectorMemento currentlyEditedNode="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/2822000231290412536" saveSessionState="false" viewPositionX="0" viewPositionY="0">
+          <inspectorMemento currentlyEditedNode="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512678" saveSessionState="false" viewPositionX="0" viewPositionY="0">
             <selectionStack />
             <errorMarkers />
             <transactionalProperties />
             <foldable />
             <restoreAlways />
             <enabledHints>
+              <enabledHintsElement enabledHintsAttribute="info.engineeredmechatronics.dri.req.editor.driHints.DRIP" />
+              <enabledHintsElement enabledHintsAttribute="de.slisson.mps.conditionalEditor.hints.editor.conditionalEditorHints.conditionalEditor_doNotUseThisHint" />
+              <enabledHintsElement enabledHintsAttribute="de.slisson.mps.conditionalEditor.hints.editor.conditionalEditorHints.conditionalEditor" />
+            </enabledHints>
+          </inspectorMemento>
+        </state>
+      </provider>
+    </entry>
+    <entry file="mps://node://CollisionWarningSystem/CollisionWarningSystem.CWS/CWSReqs">
+      <provider selected="true" editor-type-id="MPSFileEditor">
+        <state class="jetbrains.mps.ide.editor.BaseNodeEditor$BaseEditorState">
+          <memento saveSessionState="false" viewPositionX="0" viewPositionY="482">
+            <selectionStack>
+              <stackElement className="jetbrains.mps.nodeEditor.selection.EditorCellLabelSelection">
+                <property name="hasNonTrivialSelection" value="false" />
+                <property name="caretX" value="236" />
+                <property name="caretXRelative" value="150" />
+                <property name="sideSelectDirection" value="NONE" />
+                <cellInfo cellId="property_summmary">
+                  <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512678" />
+                </cellInfo>
+              </stackElement>
+            </selectionStack>
+            <errorMarkers />
+            <transactionalProperties />
+            <foldable>
+              <collapsedElement isCollapsed="false">
+                <cellIdElement cellId="refNodeList_details">
+                  <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512658" />
+                </cellIdElement>
+              </collapsedElement>
+            </foldable>
+            <restoreAlways>
+              <collapsedElement isCollapsed="false">
+                <cellIdElement cellId="refNodeList_details">
+                  <node node_reference="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512658" />
+                </cellIdElement>
+              </collapsedElement>
+            </restoreAlways>
+          </memento>
+          <inspectorMemento currentlyEditedNode="r:533df91c-380e-4a42-8d18-d62b7b48aa44(CollisionWarningSystem.CWS)/8613478698910512678" saveSessionState="false" viewPositionX="0" viewPositionY="0">
+            <selectionStack />
+            <errorMarkers />
+            <transactionalProperties />
+            <foldable />
+            <restoreAlways />
+            <enabledHints>
+              <enabledHintsElement enabledHintsAttribute="info.engineeredmechatronics.dri.req.editor.driHints.DRIP" />
               <enabledHintsElement enabledHintsAttribute="de.slisson.mps.conditionalEditor.hints.editor.conditionalEditorHints.conditionalEditor_doNotUseThisHint" />
               <enabledHintsElement enabledHintsAttribute="de.slisson.mps.conditionalEditor.hints.editor.conditionalEditorHints.conditionalEditor" />
             </enabledHints>
