@@ -1,0 +1,79 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <title>D_ImplementationArchitecture</title>
+    <link rel="stylesheet" type="text/css" href="../../../doc-support/htmlexport.css" />
+  </head>
+  <body>
+    <div>
+      <h1 id="sid618026516890240948" class="section">1 Simulink</h1>
+      <p class="body">Structure of the Simulink models is similar to structure of the Design Architecture. It consists of a model for subject vehicle, target vehicle and whole system.</p>
+      <div>
+        <h2 id="sid618026516890241815" class="section">1.1 Subject Vehicle</h2>
+        <p class="body">
+          Bellow is the imported Subject Vehicle model (<a href="#sid3511217337089652091" class="imgRef">Fig. 1.1-A</a>): 
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652091">
+          <div class="imageWithBorder">
+            <img src="./images/D_ImplementationArchitecture_subjectSimulink.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.1-A: </b>Subject vehicle implementation architecture<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290443173" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid6115841304587333142" class="section">1.2 Target Vehicle</h2>
+        <p class="body">
+          Bellow is the imported Target Vehicle model (<a href="#sid3511217337089652093" class="imgRef">Fig. 1.2-A</a>): 
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652093">
+          <div class="imageWithBorder">
+            <img src="./images/D_ImplementationArchitecture_targetSimulink.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.2-A: </b>Target vehicle implementation architecture<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7265277062992064861" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">
+          It contains a variant subsystem for a vehicle dynamics. The vehicle dynamics could be chosen before a simulation. DRIP supports these variant subsystems. A presence condition has been defined for each variant. The presence condition features and cofigurations have been defined in the variability module - <a href="#sid3511217337089652095" class="imgRef">Fig. 1.2-B</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652095">
+          <div class="imageWithBorder">
+            <img src="./images/D_ImplementationArchitecture_variability.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.2-B: </b>Variability module for different target vehicle dynamics variants<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F1350080901568234138" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid6115841304587353692" class="section">1.3 Whole System</h2>
+        <p class="body">
+          Both vehicles are combined in one system. It&apos;s implementation architecture is in <a href="#sid3511217337089652097" class="imgRef">Fig. 1.3-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652097">
+          <div class="imageWithBorder">
+            <img src="./images/D_ImplementationArchitecture_system.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.3-A: </b>Test environment implementation architecture<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290443820" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

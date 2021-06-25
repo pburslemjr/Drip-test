@@ -1,0 +1,188 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <title>C_DesignArchitecture</title>
+    <link rel="stylesheet" type="text/css" href="../../../doc-support/htmlexport.css" />
+  </head>
+  <body>
+    <div>
+      <h1 id="sid5167596200843723623" class="section">1 Design Architecture</h1>
+      <div>
+        <h2 id="sid5167596200843725308" class="section">1.1 Subject Vehicle</h2>
+        <p class="body">
+          The collision warning system is a part of a vehicle control system which is a part of whole vehicle system. It&apos;s simplified architecture is summarized in <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4794141077195680314" class="cref">SubjectVehicle</a> module - <a href="#sid3511217337089652152" class="imgRef">Fig. 1.1-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652152">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_subject.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.1-A: </b>Subject Vehicle - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301845729039" class="cref">subjectVehicle</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4794141077195680314" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid5167596200843728230" class="section">1.2 Obstacle</h2>
+        <p class="body">
+          For testing purposes <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4081641159101790" class="cref">obstacle</a> component (<a href="#sid3511217337089652154" class="imgRef">Fig. 1.2-A</a>) has been introduced. It represents any obstacle which can subject vehicle meet - another vehicle or not moving object.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652154">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_obstacle.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.2-A: </b>Obstacle - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4081641159101790" class="cref">obstacle</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4081641159101800" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid5167596200843728723" class="section">1.3 System of Two Objects</h2>
+        <p class="body">
+          Both components (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301845729039" class="cref">subjectVehicle</a> and <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4081641159101790" class="cref">obstacle</a>) are contained in one system (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290412535" class="cref">CWSsystem</a>) in which they interact together - <a href="#sid3511217337089652156" class="imgRef">Fig. 1.3-A</a>. This system is used as the testing environment.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652156">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_system.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.3-A: </b>Testing environment - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290412535" class="cref">CWSsystem</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290412536" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">
+          <br/>
+The testing system is visualized using block visualization of DRIP in <a href="#sid6115841304580521979" class="imgRef">Fig. 1.3-B</a>. Impact of <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290417712" class="cref">targetDeceleration</a> inport is also highlighted.
+        </p>
+        <div class="imagecontainer border" id="sid6115841304580521979">
+          <div class="imageWithBorder">
+            <img src="../../../images/BlockVisualization_CWSsystem_targetDeceleration.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.3-B: </b>Visualization of the testing system<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290412535" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid5167596200843730082" class="section">1.4 Port Type</h2>
+        <p class="body">
+          All the used port types are summarized bellow - <a href="#sid3511217337089652158" class="imgRef">Fig. 1.4-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652158">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_porttypes.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.4-A: </b>Port Types - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290414903" class="cref">PortTypes</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290414903" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid5167596200843730687" class="section">1.5 Low Level Requirements</h2>
+        <p class="body">
+          Two lovel level requirements were defined - <a href="#sid3511217337089652160" class="imgRef">Fig. 1.5-A</a>. First is a goal which was be used of parameter optimization. Second is a constraint and was used to verify the design. It consists of a pre-constraint (existence expression) and constraint (universality expression). 
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652160">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_llreqs.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.5-A: </b>Low level requirements  - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301849844502" class="cref">Requirement1</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301849844502" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid6115841304581115275" class="section">1.6 Test Cases</h2>
+        <p class="body">
+          Three test cases were defined. All of them defined for <span class="sectRef"><a href="C_DesignArchitecture.html#sid5167596200843728723">System of Two Objects</a></span>. However, they differ only in the setup part. The first test case <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301849809222" class="cref">TestCase1</a> corresponds to <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775272596" class="cref">High Cost High Range Sensor</a> and <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775278181" class="cref">Tactile Warning System</a> (<a href="#sid3511217337089652162" class="imgRef">Fig. 1.6-A</a>). It is reflected in two parameters - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7144450974900525061" class="cref">detectionRange</a> and <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F1051733223409736311" class="cref">driverReactionTime</a>. The second test case <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3914646894197298678" class="cref">TestCase2</a> corresponds to <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512707" class="cref">Low Cost Low Range Sensor</a> and <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775278181" class="cref">Tactile Warning System</a> (<a href="#sid3511217337089652164" class="imgRef">Fig. 1.6-B</a>). In the third test case <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7077806220466584029" class="cref">TestCase3</a> (<a href="#sid3511217337089652166" class="imgRef">Fig. 1.6-C</a>) these parameters were not set directly, they were optimized using simulations (<a href="#sid3511217337089652168" class="imgRef">Fig. 1.6-D</a>).
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652162">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_TC1.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.6-A: </b>Setup part of Test Case 1<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4814303380624684830" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <div class="imagecontainer border" id="sid3511217337089652164">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_TC2.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.6-B: </b>Setup part of Test Case 2<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3914646894197298684" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <div class="imagecontainer border" id="sid3511217337089652166">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_TC3.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.6-C: </b>Setup part of Test Case 3<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3914646894198005932" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <div class="imagecontainer border" id="sid3511217337089652168">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_OptimizationVars.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.6-D: </b>Optimization parameters for Test Case 3<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2933387570224017280" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">
+          The actors part consists of two actors. One actor is for the subject vehicle (<a href="#sid3511217337089652170" class="imgRef">Fig. 1.6-E</a>) and one is for the target vehicle (<a href="#sid3511217337089652172" class="imgRef">Fig. 1.6-F</a>).
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652170">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_SubjectActor.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.6-E: </b>Subject actor<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301849809245" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <div class="imagecontainer border" id="sid3511217337089652172">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_TargetActor.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.6-F: </b>Target actor<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301849809241" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,248 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <title>B_HighLevelRequirements</title>
+    <link rel="stylesheet" type="text/css" href="../../../doc-support/htmlexport.css" />
+  </head>
+  <body>
+    <div>
+      <h1 id="sid618026516893183228" class="section">1 Requirements, Company Knowledge and Design Rationale</h1>
+      <div>
+        <h2 id="sid618026516893195363" class="section">1.1 Company Knowledge</h2>
+        <p class="body">
+          Company knowledge was summarized in the <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512696" class="cref">CompanyKnowledge</a> module. It contains a sensor database, a database of warning systems and knowledge about vehicle stopping performance. 
+        </p>
+        <p class="body">
+          The sensors database contains two senzors - <a href="#sid3511217337089652099" class="imgRef">Fig. 1.1-A</a>. Each of them is represented by three parameters - detection range, sensor cost and time to market. The first sensor can detect an obstacle in higher distance and it could be sooner available for sale, however it is more expensive compared to the second sensor.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652099">
+          <div class="imageWithBorder">
+            <img width="100%" src="./images/B_HighLevelRequirements_sensors.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.1-A: </b>Senzors from the company database - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512701" class="cref">SensData</a>.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512701" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">The database of warning systems consists of three warning systems (bellow as text). They are represented by two parameters - driver reaction time and warning system cost. The first warning system assists a driver to react the soonest, however it is the most expensive. The third warning system is the cheapest, however a driver will react at the latest. The second warning system is in the middle in both characteristics.</p>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                                                                                                                                                                                                                               <br/>
+                                                                                                                                                                                                                                                             <br/>
+                                                                                                                                                                                                                                                             <br/>
+2 Warning Systems Database                                                                                                                                                                                                                                   <br/>
+  WSysdB /abstract systems knowledge: tags                                                                                                                                                                                                                   <br/>
+  created by swami at Apr 4, 2016 (83 months ago)                                                                                                                                                                                                            <br/>
+  A primary characterization of the warning system is the associated reaction time for the driver to respond - specifically from the onset of the warning to the completion of any corrective action by the driver. This is database of known warning systems<br/>
+                                                                                                                                                                                                                                                             <br/>
+  2.1 Tactile Warning System                                                                                                                                                                                                                                 <br/>
+      TactileWarnSys /abstract systems knowledge: tags                                                                                                                                                                                                       <br/>
+      created by swami at Apr 4, 2016 (83 months ago)                                                                                                                                                                                                        <br/>
+      This is the warning system that uses vibratory motors embedded inside the seats to provide warning to the driver.                                                                                                                                      <br/>
+      ------------------------------                                                                                                                                                                                                                         <br/>
+      enforce enforce_0: driverReactionTime &gt;= 1.8 s                                                                                                                                                                                                         <br/>
+      fact fact_1: warnSysCost = 5                                                                                                                                                                                                                           <br/>
+                                                                                                                                                                                                                                                             <br/>
+  2.2 Aural Warning System                                                                                                                                                                                                                                   <br/>
+      AuralWarnSys /abstract systems knowledge: tags                                                                                                                                                                                                         <br/>
+      created by swami at Apr 4, 2016 (83 months ago)                                                                                                                                                                                                        <br/>
+      This is the warning system that uses the built-in speakers to issue a warning to the driver.                                                                                                                                                           <br/>
+      ------------------------------                                                                                                                                                                                                                         <br/>
+      enforce enforce_0: driverReactionTime &gt;= 2 s                                                                                                                                                                                                           <br/>
+      enforce enforce_1: warnSysCost = 3.3                                                                                                                                                                                                                   <br/>
+                                                                                                                                                                                                                                                             <br/>
+  2.3 Visual Warning System                                                                                                                                                                                                                                  <br/>
+      VisualWarnSys /abstract systems knowledge: tags                                                                                                                                                                                                        <br/>
+      created by swami at Apr 4, 2016 (83 months ago)                                                                                                                                                                                                        <br/>
+      This is the warning system that uses the existing display unit to provide the warning.                                                                                                                                                                 <br/>
+      ------------------------------                                                                                                                                                                                                                         <br/>
+      enforce enforce_0: driverReactionTime &gt;= 2.2 s                                                                                                                                                                                                         <br/>
+      enforce enforce_1: warnSysCost = 1.1                                                                                                                                                                                                                   <br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775274614" class="originalNode" title="open in MPS"></a>
+        </div>
+        <p class="body">
+          The last part of the company knowledge module contains knowledge about vehicle stopping performance - <a href="#sid3511217337089652101" class="imgRef">Fig. 1.1-B</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652101">
+          <div class="imageWithBorder">
+            <img src="./images/B_HighLevelRequirements_vehStopPerf.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.1-B: </b>Company Knowledge about vehicle stopping performance - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775282128" class="cref">VehStopPerf</a>.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775282128" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid618026516893194196" class="section">1.2 Requirements</h2>
+        <p class="body">
+          Requirements for the Collision Warning System are summarized in the <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512653" class="cref">CWSReqs</a> module. The module content can be found in the nested sections. In addition the requirements contains following constraints:
+        </p>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                            <br/>
+enforce enforce_0: stoppingDistafterWarning &lt; obstacleDist<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5168827231102150045" class="originalNode" title="open in MPS"></a>
+        </div>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                                        <br/>
+enforce enforce_0: T2M * 0.9 + warnSysCost * 1.12 + sensorCost &lt;= 10.0<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775244533" class="originalNode" title="open in MPS"></a>
+        </div>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                                    <br/>
+enforce enforce_1: (obstacleDist - stoppingDistafterWarning) &gt; 3 m<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F126066514435327360" class="originalNode" title="open in MPS"></a>
+        </div>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                              <br/>
+enforce enforce_0:Vehicle Platform needs to be in Production<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775267986" class="originalNode" title="open in MPS"></a>
+        </div>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                                                                    <br/>
+required range  There exists a solution for every values of frictionCoeff in the range [0.4 , 0.9)<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5168827231101816098" class="originalNode" title="open in MPS"></a>
+        </div>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------     <br/>
+enforce enforce_0: decel &lt; 4.9 mps2<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5168827231101820736" class="originalNode" title="open in MPS"></a>
+        </div>
+        
+        <div>
+          <h3 id="sid3511217337089652104" class="section">1.2.1 A New Initiative to implement a Low Cost Collision Warning System (CWS) (ER1) [functional] </h3>
+          <p class="body">A new initiative is being rolled out to introduce a low cost Collision Warning System (CWS). The CWS will provide a warning to the driver when there is an obseved danger of collision, so that the driver can react appropriately and avoid the collision. </p>
+          <p class="body">The CWS will be a passive system, and will not interfere with the vehicle performance directly.</p>
+          <div>
+            <h4 id="sid3511217337089652108" class="section">1.2.1.1 Collision Avoidance (ER1CA) [functional] </h4>
+            <p class="body">In order to avoid a collision, we need the stopping distance to be smaller than the distance at which the obstacle was detected.</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652113" class="section">1.2.1.2 Cost  (ER1Cost) [functional] </h4>
+            <p class="body">A critical business requirement to make this initiative successful is that the cost of the overall system be kept to acceptable limits. The overall system cost is considered in terms of three major constituents: The cost of the sensing system, the cost of the warning system, and the equivalent cost associated with time-to-market related to any solution.</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652118" class="section">1.2.1.3 Safe distance (DistReq) [functional] </h4>
+            <p class="body">Min distance from target to subject vehicle should be greater than 3 m for all possible speed conditions</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652123" class="section">1.2.1.4 Vehicle Platforms (VehPlatforms) [functional] </h4>
+            <p class="body">The applicable vehicle platforms are only those already in production.</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652128" class="section">1.2.1.5 No New Parts Sourcing (NoNewSourcing) [functional] </h4>
+            <p class="body">In order to keep the product management under control, there is a requirement that no new parts will be sourced. This implies existing components need to be used.</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652133" class="section">1.2.1.6 Road Conditions (rdCons) [functional] </h4>
+            <p class="body">The vehicle is considered to travel on roads where the friciton coefficient between the tyre and the road  varies from 0.4 (wet roads) to 0.9 (dry roads)</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652138" class="section">1.2.1.7 Deceleration Range (decelRange) [functional] </h4>
+            <p class="body">For comfortable and jerk-free deceleration during braking, the deceleration of the car should be less than 0.5 g</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid618026516893199785" class="section">1.3 Design Rationale</h2>
+        <p class="body">
+          Based on the requirements and with use of the company knowledge the design was explored. It is documented in the <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5171671061753209836" class="cref">DesignAndEngineering</a> module - <a href="#sid3511217337089652144" class="imgRef">Fig. 1.3-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652144">
+          <div class="imageWithBorder">
+            <img src="./images/B_HighLevelRequirements_design.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.3-A: </b>Design rationale - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5171671061753209836" class="cref">DesignAndEngineering</a>.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F9188585054097740779" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid5167596200768280849" class="section">1.4 Dependencies</h2>
+        <p class="body">
+          Following image (<a href="#sid5167596200768288435" class="imgRef">Fig. 1.4-A</a>) highlights dependencies between requirement (green), knowledge (pink) and design (blue) items. It has been generated using GraphView and the <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512653" class="cref">CWSReqs</a> modules has been taken as it&apos;s root.
+        </p>
+        <div class="imagecontainer border" id="sid5167596200768288435">
+          <div class="imageWithBorder">
+            <img src="../../../images/GraphViewer_CWSReqs_KKLayout.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.4-A: </b>Dependencies<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512653" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid5167596200768312306" class="section">1.5 Common Variables Definitions and Unit Definitions</h2>
+        <p class="body">
+          All the requirements, company knowledge and desing rationals use variables defined in following common object definition module (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2933387570224017282" class="cref">CommonDefinitions</a>) - <a href="#sid3511217337089652146" class="imgRef">Fig. 1.5-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652146">
+          <div class="imageWithBorder">
+            <img src="./images/B_HighLevelRequirements_cods.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.5-A: </b>Common variables - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2933387570224017282" class="cref">CommonDefinitions</a>.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2933387570224017282" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">
+          Additional units have been created for project. They are stored in the unit container (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5070128491496070674" class="cref">CompanyUnitsDefinitions</a>) - <a href="#sid3511217337089652148" class="imgRef">Fig. 1.5-B</a>. Other units used by this model was defined by DRIP.  
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652148">
+          <div class="imageWithBorder">
+            <img src="./images/B_HighLevelRequirements_units.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.5-B: </b>Additional unit - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5070128491496070674" class="cref">CompanyUnitsDefinitions</a>.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5070128491496070674" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid5167596200768314613" class="section">1.6 Infeasibility Analysis</h2>
+        <p class="body">
+          Combinatorial analysis has been done for both sensors and all three warning systems (<span class="sectRef">Section <a href="B_HighLevelRequirements.html#sid618026516893195363">1.1 Company Knowledge</a></span>). All six combinations has been automatically check by DRIP and only one has been found as feasible - <a href="#sid3511217337089652150" class="imgRef">Fig. 1.6-A</a>. The visual warning system (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775278251" class="cref">VisualWarnSys</a>) and the high cost high range sensor (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775272596" class="cref">HCHRSens</a>) is the only feasible combination.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652150">
+          <div class="imageWithBorder">
+            <img src="./images/B_HighLevelRequirements_analysis.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.6-A: </b>The only feasible combination of a sensor and a warning system - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3511217337089607665" class="cref">Test_5</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3511217337089607665" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">
+          An example of a feasible region of two variables is in <a href="#sid5167596200772710185" class="imgRef">Fig. 1.6-B</a>. It is a result of the detailed analysis based on the visual warning system and the high cost high range sensor. For the rest combinations of sensors and warning system there is no feasible solution.
+        </p>
+        <div class="imagecontainer border" id="sid5167596200772710185">
+          <div class="imageWithBorder">
+            <img src="../../../images/DetailedAnalysis_Test5_decel_brakeStartVehicleSpeed.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.6-B: </b>The feasible region of two variables (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775338788" class="cref">decel</a> and <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512811" class="cref">brakeStartVehicleSpeed</a>) for the only feasible sensor and warning system.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3511217337089607665" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

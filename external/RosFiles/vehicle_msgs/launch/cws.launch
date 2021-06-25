@@ -1,0 +1,15 @@
+<launch>
+  <node name="target" pkg="target" type="node" output ="log">
+    <param name="speed" type="double" value="10" />
+    <param name="position" type="double" value="500" />
+  </node>
+  <node name="vehicle_dynamics" pkg="vehicle_dynamics" type="vehicle_dynamics_node" output ="log">
+    <param name="speed" type="double" value="0" />
+    <param name="position" type="double" value="0" />
+    <param name="friction_coefficient" type="double" value="0.5" />
+  </node>
+  <node name="controller" pkg="controller" type="controller_node" output ="screen">
+    <param name="detection_range" type="double" value="150" />
+    <param name="driver_reaction_time" type="double" value="1.8" />
+  </node>
+</launch>

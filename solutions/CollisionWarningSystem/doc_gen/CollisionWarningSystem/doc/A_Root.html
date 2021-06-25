@@ -1,0 +1,672 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <title>A_Root</title>
+    <link rel="stylesheet" type="text/css" href="../../../doc-support/htmlexport.css" />
+  </head>
+  <body>
+    <div>
+      <h1 id="sid618026516897167431" class="section"> Collision Warning System</h1>
+      <p class="body">This document presents the work and results of Collision Warning System project. It summarizes it&apos;s workflow from high level requirements, high level constraints and early stage infeasibility analysis through system design architecture, low level requirements, test scenarios and it&apos;s mapping to Simulink implementation. It ends with Simulink based verification of low and high level constraints in different test scenarios. It also shows Simulink based parameter optimization.</p>
+    </div>
+    <div>
+      <h1 id="toc" class="tableOfContents">Table of Contents</h1>
+      <div class="tocChapter">
+        <strong><a href="#sid3511217337089652188">1 Requirements, Company Knowledge and Design Rationale</a></strong>
+        <div class="tocSection">
+          <a href="#sid3511217337089652190">1.1 Company Knowledge</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652243">1.2 Requirements</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652358">1.3 Design Rationale</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652380">1.4 Dependencies</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652399">1.5 Common Variables Definitions and Unit Definitions</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652439">1.6 Infeasibility Analysis</a>
+        </div>
+      </div>
+      <div class="tocChapter">
+        <strong><a href="#sid3511217337089652500">2 Design Architecture</a></strong>
+        <div class="tocSection">
+          <a href="#sid3511217337089652501">2.1 Subject Vehicle</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652524">2.2 Obstacle</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652549">2.3 System of Two Objects</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652604">2.4 Port Type</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652622">2.5 Low Level Requirements</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652641">2.6 Test Cases</a>
+        </div>
+      </div>
+      <div class="tocChapter">
+        <strong><a href="#sid3511217337089652760">3 Simulink</a></strong>
+        <div class="tocSection">
+          <a href="#sid3511217337089652766">3.1 Subject Vehicle</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652778">3.2 Target Vehicle</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652804">3.3 Whole System</a>
+        </div>
+      </div>
+      <div class="tocChapter">
+        <strong><a href="#sid3511217337089652818">4 Mapping</a></strong>
+        <div class="tocSection">
+          <a href="#sid3511217337089652819">4.1 Design Architecture to Implementation Architecture</a>
+        </div>
+        <div class="tocSection">
+          <a href="#sid3511217337089652834">4.2 High Level Variables to Design Architecture</a>
+        </div>
+      </div>
+      <div class="tocChapter">
+        <strong><a href="#sid3511217337089652848">5 Simulink Verification</a></strong>
+      </div>
+    </div>
+    <div>
+      <h1 id="sid3511217337089652188" class="section">1 Requirements, Company Knowledge and Design Rationale</h1>
+      <div>
+        <h2 id="sid3511217337089652190" class="section">1.1 Company Knowledge</h2>
+        <p class="body">
+          Company knowledge was summarized in the <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512696" class="cref">CompanyKnowledge</a> module. It contains a sensor database, a database of warning systems and knowledge about vehicle stopping performance. 
+        </p>
+        <p class="body">
+          The sensors database contains two senzors - <a href="#sid3511217337089652203" class="imgRef">Fig. 1.1-A</a>. Each of them is represented by three parameters - detection range, sensor cost and time to market. The first sensor can detect an obstacle in higher distance and it could be sooner available for sale, however it is more expensive compared to the second sensor.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652203">
+          <div class="imageWithBorder">
+            <img width="100%" src="./images/B_HighLevelRequirements_sensors.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.1-A: </b>Senzors from the company database - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512701" class="cref">SensData</a>.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512701" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">The database of warning systems consists of three warning systems (bellow as text). They are represented by two parameters - driver reaction time and warning system cost. The first warning system assists a driver to react the soonest, however it is the most expensive. The third warning system is the cheapest, however a driver will react at the latest. The second warning system is in the middle in both characteristics.</p>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                                                                                                                                                                                                                               <br/>
+                                                                                                                                                                                                                                                             <br/>
+                                                                                                                                                                                                                                                             <br/>
+2 Warning Systems Database                                                                                                                                                                                                                                   <br/>
+  WSysdB /abstract systems knowledge: tags                                                                                                                                                                                                                   <br/>
+  created by swami at Apr 4, 2016 (83 months ago)                                                                                                                                                                                                            <br/>
+  A primary characterization of the warning system is the associated reaction time for the driver to respond - specifically from the onset of the warning to the completion of any corrective action by the driver. This is database of known warning systems<br/>
+                                                                                                                                                                                                                                                             <br/>
+  2.1 Tactile Warning System                                                                                                                                                                                                                                 <br/>
+      TactileWarnSys /abstract systems knowledge: tags                                                                                                                                                                                                       <br/>
+      created by swami at Apr 4, 2016 (83 months ago)                                                                                                                                                                                                        <br/>
+      This is the warning system that uses vibratory motors embedded inside the seats to provide warning to the driver.                                                                                                                                      <br/>
+      ------------------------------                                                                                                                                                                                                                         <br/>
+      enforce enforce_0: driverReactionTime &gt;= 1.8 s                                                                                                                                                                                                         <br/>
+      fact fact_1: warnSysCost = 5                                                                                                                                                                                                                           <br/>
+                                                                                                                                                                                                                                                             <br/>
+  2.2 Aural Warning System                                                                                                                                                                                                                                   <br/>
+      AuralWarnSys /abstract systems knowledge: tags                                                                                                                                                                                                         <br/>
+      created by swami at Apr 4, 2016 (83 months ago)                                                                                                                                                                                                        <br/>
+      This is the warning system that uses the built-in speakers to issue a warning to the driver.                                                                                                                                                           <br/>
+      ------------------------------                                                                                                                                                                                                                         <br/>
+      enforce enforce_0: driverReactionTime &gt;= 2 s                                                                                                                                                                                                           <br/>
+      enforce enforce_1: warnSysCost = 3.3                                                                                                                                                                                                                   <br/>
+                                                                                                                                                                                                                                                             <br/>
+  2.3 Visual Warning System                                                                                                                                                                                                                                  <br/>
+      VisualWarnSys /abstract systems knowledge: tags                                                                                                                                                                                                        <br/>
+      created by swami at Apr 4, 2016 (83 months ago)                                                                                                                                                                                                        <br/>
+      This is the warning system that uses the existing display unit to provide the warning.                                                                                                                                                                 <br/>
+      ------------------------------                                                                                                                                                                                                                         <br/>
+      enforce enforce_0: driverReactionTime &gt;= 2.2 s                                                                                                                                                                                                         <br/>
+      enforce enforce_1: warnSysCost = 1.1                                                                                                                                                                                                                   <br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775274614" class="originalNode" title="open in MPS"></a>
+        </div>
+        <p class="body">
+          The last part of the company knowledge module contains knowledge about vehicle stopping performance - <a href="#sid3511217337089652230" class="imgRef">Fig. 1.1-B</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652230">
+          <div class="imageWithBorder">
+            <img src="./images/B_HighLevelRequirements_vehStopPerf.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.1-B: </b>Company Knowledge about vehicle stopping performance - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775282128" class="cref">VehStopPerf</a>.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775282128" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652243" class="section">1.2 Requirements</h2>
+        <p class="body">
+          Requirements for the Collision Warning System are summarized in the <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512653" class="cref">CWSReqs</a> module. The module content can be found in the nested sections. In addition the requirements contains following constraints:
+        </p>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                            <br/>
+enforce enforce_0: stoppingDistafterWarning &lt; obstacleDist<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5168827231102150045" class="originalNode" title="open in MPS"></a>
+        </div>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                                        <br/>
+enforce enforce_0: T2M * 0.9 + warnSysCost * 1.12 + sensorCost &lt;= 10.0<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775244533" class="originalNode" title="open in MPS"></a>
+        </div>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                                    <br/>
+enforce enforce_1: (obstacleDist - stoppingDistafterWarning) &gt; 3 m<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F126066514435327360" class="originalNode" title="open in MPS"></a>
+        </div>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                              <br/>
+enforce enforce_0:Vehicle Platform needs to be in Production<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775267986" class="originalNode" title="open in MPS"></a>
+        </div>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------                                                                    <br/>
+required range  There exists a solution for every values of frictionCoeff in the range [0.4 , 0.9)<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5168827231101816098" class="originalNode" title="open in MPS"></a>
+        </div>
+        <div class="codeblockContainer">
+          <pre class="codeblock">------------------------------     <br/>
+enforce enforce_0: decel &lt; 4.9 mps2<br/>
+------------------------------</pre><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5168827231101820736" class="originalNode" title="open in MPS"></a>
+        </div>
+        
+        <div>
+          <h3 id="sid3511217337089652291" class="section">1.2.1 A New Initiative to implement a Low Cost Collision Warning System (CWS) (ER1) [functional] </h3>
+          <p class="body">A new initiative is being rolled out to introduce a low cost Collision Warning System (CWS). The CWS will provide a warning to the driver when there is an obseved danger of collision, so that the driver can react appropriately and avoid the collision. </p>
+          <p class="body">The CWS will be a passive system, and will not interfere with the vehicle performance directly.</p>
+          <div>
+            <h4 id="sid3511217337089652301" class="section">1.2.1.1 Collision Avoidance (ER1CA) [functional] </h4>
+            <p class="body">In order to avoid a collision, we need the stopping distance to be smaller than the distance at which the obstacle was detected.</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652309" class="section">1.2.1.2 Cost  (ER1Cost) [functional] </h4>
+            <p class="body">A critical business requirement to make this initiative successful is that the cost of the overall system be kept to acceptable limits. The overall system cost is considered in terms of three major constituents: The cost of the sensing system, the cost of the warning system, and the equivalent cost associated with time-to-market related to any solution.</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652317" class="section">1.2.1.3 Safe distance (DistReq) [functional] </h4>
+            <p class="body">Min distance from target to subject vehicle should be greater than 3 m for all possible speed conditions</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652325" class="section">1.2.1.4 Vehicle Platforms (VehPlatforms) [functional] </h4>
+            <p class="body">The applicable vehicle platforms are only those already in production.</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652333" class="section">1.2.1.5 No New Parts Sourcing (NoNewSourcing) [functional] </h4>
+            <p class="body">In order to keep the product management under control, there is a requirement that no new parts will be sourced. This implies existing components need to be used.</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652341" class="section">1.2.1.6 Road Conditions (rdCons) [functional] </h4>
+            <p class="body">The vehicle is considered to travel on roads where the friciton coefficient between the tyre and the road  varies from 0.4 (wet roads) to 0.9 (dry roads)</p>
+          </div>
+          <div>
+            <h4 id="sid3511217337089652349" class="section">1.2.1.7 Deceleration Range (decelRange) [functional] </h4>
+            <p class="body">For comfortable and jerk-free deceleration during braking, the deceleration of the car should be less than 0.5 g</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652358" class="section">1.3 Design Rationale</h2>
+        <p class="body">
+          Based on the requirements and with use of the company knowledge the design was explored. It is documented in the <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5171671061753209836" class="cref">DesignAndEngineering</a> module - <a href="#sid3511217337089652369" class="imgRef">Fig. 1.3-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652369">
+          <div class="imageWithBorder">
+            <img src="./images/B_HighLevelRequirements_design.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.3-A: </b>Design rationale - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5171671061753209836" class="cref">DesignAndEngineering</a>.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F9188585054097740779" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652380" class="section">1.4 Dependencies</h2>
+        <p class="body">
+          Following image (<a href="#sid3511217337089652391" class="imgRef">Fig. 1.4-A</a>) highlights dependencies between requirement (green), knowledge (pink) and design (blue) items. It has been generated using GraphView and the <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512653" class="cref">CWSReqs</a> modules has been taken as it&apos;s root.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652391">
+          <div class="imageWithBorder">
+            <img src="../../../images/GraphViewer_CWSReqs_KKLayout.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.4-A: </b>Dependencies<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512653" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652399" class="section">1.5 Common Variables Definitions and Unit Definitions</h2>
+        <p class="body">
+          All the requirements, company knowledge and desing rationals use variables defined in following common object definition module (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2933387570224017282" class="cref">CommonDefinitions</a>) - <a href="#sid3511217337089652409" class="imgRef">Fig. 1.5-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652409">
+          <div class="imageWithBorder">
+            <img src="./images/B_HighLevelRequirements_cods.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.5-A: </b>Common variables - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2933387570224017282" class="cref">CommonDefinitions</a>.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2933387570224017282" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">
+          Additional units have been created for project. They are stored in the unit container (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5070128491496070674" class="cref">CompanyUnitsDefinitions</a>) - <a href="#sid3511217337089652429" class="imgRef">Fig. 1.5-B</a>. Other units used by this model was defined by DRIP.  
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652429">
+          <div class="imageWithBorder">
+            <img src="./images/B_HighLevelRequirements_units.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.5-B: </b>Additional unit - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5070128491496070674" class="cref">CompanyUnitsDefinitions</a>.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F5070128491496070674" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652439" class="section">1.6 Infeasibility Analysis</h2>
+        <p class="body">
+          Combinatorial analysis has been done for both sensors and all three warning systems (<span class="sectRef">Section <a href="A_Root.html#sid3511217337089652190">1.1 Company Knowledge</a></span>). All six combinations has been automatically check by DRIP and only one has been found as feasible - <a href="#sid3511217337089652460" class="imgRef">Fig. 1.6-A</a>. The visual warning system (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775278251" class="cref">VisualWarnSys</a>) and the high cost high range sensor (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775272596" class="cref">HCHRSens</a>) is the only feasible combination.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652460">
+          <div class="imageWithBorder">
+            <img src="./images/B_HighLevelRequirements_analysis.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.6-A: </b>The only feasible combination of a sensor and a warning system - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3511217337089607665" class="cref">Test_5</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3511217337089607665" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">
+          An example of a feasible region of two variables is in <a href="#sid3511217337089652476" class="imgRef">Fig. 1.6-B</a>. It is a result of the detailed analysis based on the visual warning system and the high cost high range sensor. For the rest combinations of sensors and warning system there is no feasible solution.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652476">
+          <div class="imageWithBorder">
+            <img src="../../../images/DetailedAnalysis_Test5_decel_brakeStartVehicleSpeed.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              1.6-B: </b>The feasible region of two variables (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775338788" class="cref">decel</a> and <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512811" class="cref">brakeStartVehicleSpeed</a>) for the only feasible sensor and warning system.<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3511217337089607665" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h1 id="sid3511217337089652500" class="section">2 Design Architecture</h1>
+      <div>
+        <h2 id="sid3511217337089652501" class="section">2.1 Subject Vehicle</h2>
+        <p class="body">
+          The collision warning system is a part of a vehicle control system which is a part of whole vehicle system. It&apos;s simplified architecture is summarized in <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4794141077195680314" class="cref">SubjectVehicle</a> module - <a href="#sid3511217337089652513" class="imgRef">Fig. 2.1-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652513">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_subject.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.1-A: </b>Subject Vehicle - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301845729039" class="cref">subjectVehicle</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4794141077195680314" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652524" class="section">2.2 Obstacle</h2>
+        <p class="body">
+          For testing purposes <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4081641159101790" class="cref">obstacle</a> component (<a href="#sid3511217337089652537" class="imgRef">Fig. 2.2-A</a>) has been introduced. It represents any obstacle which can subject vehicle meet - another vehicle or not moving object.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652537">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_obstacle.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.2-A: </b>Obstacle - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4081641159101790" class="cref">obstacle</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4081641159101800" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652549" class="section">2.3 System of Two Objects</h2>
+        <p class="body">
+          Both components (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301845729039" class="cref">subjectVehicle</a> and <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4081641159101790" class="cref">obstacle</a>) are contained in one system (<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290412535" class="cref">CWSsystem</a>) in which they interact together - <a href="#sid3511217337089652572" class="imgRef">Fig. 2.3-A</a>. This system is used as the testing environment.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652572">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_system.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.3-A: </b>Testing environment - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290412535" class="cref">CWSsystem</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290412536" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">
+          <br/>
+The testing system is visualized using block visualization of DRIP in <a href="#sid3511217337089652595" class="imgRef">Fig. 2.3-B</a>. Impact of <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290417712" class="cref">targetDeceleration</a> inport is also highlighted.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652595">
+          <div class="imageWithBorder">
+            <img src="../../../images/BlockVisualization_CWSsystem_targetDeceleration.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.3-B: </b>Visualization of the testing system<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290412535" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652604" class="section">2.4 Port Type</h2>
+        <p class="body">
+          All the used port types are summarized bellow - <a href="#sid3511217337089652612" class="imgRef">Fig. 2.4-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652612">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_porttypes.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.4-A: </b>Port Types - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290414903" class="cref">PortTypes</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290414903" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652622" class="section">2.5 Low Level Requirements</h2>
+        <p class="body">
+          Two lovel level requirements were defined - <a href="#sid3511217337089652630" class="imgRef">Fig. 2.5-A</a>. First is a goal which was be used of parameter optimization. Second is a constraint and was used to verify the design. It consists of a pre-constraint (existence expression) and constraint (universality expression). 
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652630">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_llreqs.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.5-A: </b>Low level requirements  - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301849844502" class="cref">Requirement1</a><a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301849844502" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652641" class="section">2.6 Test Cases</h2>
+        <p class="body">
+          Three test cases were defined. All of them defined for <span class="sectRef"><a href="A_Root.html#sid3511217337089652549">System of Two Objects</a></span>. However, they differ only in the setup part. The first test case <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301849809222" class="cref">TestCase1</a> corresponds to <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775272596" class="cref">High Cost High Range Sensor</a> and <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775278181" class="cref">Tactile Warning System</a> (<a href="#sid3511217337089652715" class="imgRef">Fig. 2.6-A</a>). It is reflected in two parameters - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7144450974900525061" class="cref">detectionRange</a> and <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F1051733223409736311" class="cref">driverReactionTime</a>. The second test case <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3914646894197298678" class="cref">TestCase2</a> corresponds to <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F8613478698910512707" class="cref">Low Cost Low Range Sensor</a> and <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7355530221775278181" class="cref">Tactile Warning System</a> (<a href="#sid3511217337089652721" class="imgRef">Fig. 2.6-B</a>). In the third test case <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7077806220466584029" class="cref">TestCase3</a> (<a href="#sid3511217337089652727" class="imgRef">Fig. 2.6-C</a>) these parameters were not set directly, they were optimized using simulations (<a href="#sid3511217337089652733" class="imgRef">Fig. 2.6-D</a>).
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652715">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_TC1.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.6-A: </b>Setup part of Test Case 1<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F4814303380624684830" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <div class="imagecontainer border" id="sid3511217337089652721">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_TC2.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.6-B: </b>Setup part of Test Case 2<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3914646894197298684" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <div class="imagecontainer border" id="sid3511217337089652727">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_TC3.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.6-C: </b>Setup part of Test Case 3<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3914646894198005932" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <div class="imagecontainer border" id="sid3511217337089652733">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_OptimizationVars.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.6-D: </b>Optimization parameters for Test Case 3<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2933387570224017280" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">
+          The actors part consists of two actors. One actor is for the subject vehicle (<a href="#sid3511217337089652748" class="imgRef">Fig. 2.6-E</a>) and one is for the target vehicle (<a href="#sid3511217337089652754" class="imgRef">Fig. 2.6-F</a>).
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652748">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_SubjectActor.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.6-E: </b>Subject actor<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301849809245" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <div class="imagecontainer border" id="sid3511217337089652754">
+          <div class="imageWithBorder">
+            <img src="./images/C_DesignArchitecture_TargetActor.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              2.6-F: </b>Target actor<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301849809241" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h1 id="sid3511217337089652760" class="section">3 Simulink</h1>
+      <p class="body">Structure of the Simulink models is similar to structure of the Design Architecture. It consists of a model for subject vehicle, target vehicle and whole system.</p>
+      <div>
+        <h2 id="sid3511217337089652766" class="section">3.1 Subject Vehicle</h2>
+        <p class="body">
+          Bellow is the imported Subject Vehicle model (<a href="#sid3511217337089652772" class="imgRef">Fig. 3.1-A</a>): 
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652772">
+          <div class="imageWithBorder">
+            <img src="./images/D_ImplementationArchitecture_subjectSimulink.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              3.1-A: </b>Subject vehicle implementation architecture<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290443173" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652778" class="section">3.2 Target Vehicle</h2>
+        <p class="body">
+          Bellow is the imported Target Vehicle model (<a href="#sid3511217337089652784" class="imgRef">Fig. 3.2-A</a>): 
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652784">
+          <div class="imageWithBorder">
+            <img src="./images/D_ImplementationArchitecture_targetSimulink.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              3.2-A: </b>Target vehicle implementation architecture<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F7265277062992064861" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+        <p class="body">
+          It contains a variant subsystem for a vehicle dynamics. The vehicle dynamics could be chosen before a simulation. DRIP supports these variant subsystems. A presence condition has been defined for each variant. The presence condition features and cofigurations have been defined in the variability module - <a href="#sid3511217337089652797" class="imgRef">Fig. 3.2-B</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652797">
+          <div class="imageWithBorder">
+            <img src="./images/D_ImplementationArchitecture_variability.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              3.2-B: </b>Variability module for different target vehicle dynamics variants<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F1350080901568234138" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652804" class="section">3.3 Whole System</h2>
+        <p class="body">
+          Both vehicles are combined in one system. It&apos;s implementation architecture is in <a href="#sid3511217337089652812" class="imgRef">Fig. 3.3-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652812">
+          <div class="imageWithBorder">
+            <img src="./images/D_ImplementationArchitecture_system.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              3.3-A: </b>Test environment implementation architecture<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290443820" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h1 id="sid3511217337089652818" class="section">4 Mapping</h1>
+      <div>
+        <h2 id="sid3511217337089652819" class="section">4.1 Design Architecture to Implementation Architecture</h2>
+        <p class="body">
+          In order to verify test cases the design architecture, which does not contain behaviour, needs to be map to an implementation architecture. Such mapping is shown in <a href="#sid3511217337089652827" class="imgRef">Fig. 4.1-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652827">
+          <div class="imageWithBorder">
+            <img src="./images/E_Mapping_da2iaMapping.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              4.1-A: </b>Mapping between design architecture and implementation architecture<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6032421301849824450" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 id="sid3511217337089652834" class="section">4.2 High Level Variables to Design Architecture</h2>
+        <p class="body">
+          In order to verify high level constraints in simulations, it&apos;s variables needs to mapping to signals in design architecture. Such mapping is defined in <a href="#sid3511217337089652842" class="imgRef">Fig. 4.2-A</a>.
+        </p>
+        <div class="imagecontainer border" id="sid3511217337089652842">
+          <div class="imageWithBorder">
+            <img src="./images/E_Mapping_cod2iaMapping.png" />
+          </div>
+          <div class="imagecaption">
+            <p class="caption">
+              <b>Figure
+              4.2-A: </b>Mapping between high level variables and design architecture<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2933387570224017901" class="originalNode" title="open in MPS"></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h1 id="sid3511217337089652848" class="section">5 Simulink Verification</h1>
+      <p class="body">
+        The subject vehicle has been tested in test case 1 and 2 with a car as target vehicle - <a href="#sid3511217337089652860" class="imgRef">Fig. 5-A</a> and <a href="#sid3511217337089652866" class="imgRef">Fig. 5-B</a>. The test case 1 has been fulfilled but test case 2 now. The difference between them is the senzor. In the first case the high range sensor were used and in the second case the low range sensor. This corresponds to the results of infeasibility analysis - <span class="sectRef"><a href="A_Root.html#sid3511217337089652439">Infeasibility Analysis</a></span>.
+      </p>
+      <div class="imagecontainer border" id="sid3511217337089652860">
+        <div class="imageWithBorder">
+          <img src="./images/F_SimulinkVerification_CarTC1.png" />
+        </div>
+        <div class="imagecaption">
+          <p class="caption">
+            <b>Figure
+            5-A: </b>Test case 1 with a car as target vehicle<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290440083" class="originalNode" title="open in MPS"></a>
+          </p>
+        </div>
+      </div>
+      <div class="imagecontainer border" id="sid3511217337089652866">
+        <div class="imageWithBorder">
+          <img src="./images/F_SimulinkVerification_CarTC2.png" />
+        </div>
+        <div class="imagecaption">
+          <p class="caption">
+            <b>Figure
+            5-B: </b>Test case 2 with a car as target vehicle<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3914646894197317346" class="originalNode" title="open in MPS"></a>
+          </p>
+        </div>
+      </div>
+      <p class="body">
+        The similar results were reached with a truck as target vehicle - <a href="#sid3511217337089652881" class="imgRef">Fig. 5-C</a> and <a href="#sid3511217337089652887" class="imgRef">Fig. 5-D</a>.
+      </p>
+      <div class="imagecontainer border" id="sid3511217337089652881">
+        <div class="imageWithBorder">
+          <img src="./images/F_SimulinkVerification_TruckTC1.png" />
+        </div>
+        <div class="imagecaption">
+          <p class="caption">
+            <b>Figure
+            5-C: </b>Test case 1 with a truck as target vehicle<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F2822000231290440189" class="originalNode" title="open in MPS"></a>
+          </p>
+        </div>
+      </div>
+      <div class="imagecontainer border" id="sid3511217337089652887">
+        <div class="imageWithBorder">
+          <img src="./images/F_SimulinkVerification_TruckTC2.png" />
+        </div>
+        <div class="imagecaption">
+          <p class="caption">
+            <b>Figure
+            5-D: </b>Test case 2 with a truck as target vehicle<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F3104238054949732565" class="originalNode" title="open in MPS"></a>
+          </p>
+        </div>
+      </div>
+      <p class="body">
+        Test case 3 has been used for optimization of two parameters - <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F1949841385687964914" class="cref">detectionRangeOpt</a> and <a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F1949841385687964918" class="cref">driverReactionTimeOpt</a>. The goal was to maximize the braking distance between the vehicles and fulfill all the other constraints. The results is shown in <a href="#sid3511217337089652916" class="imgRef">Fig. 5-E</a>.
+      </p>
+      <div class="imagecontainer border" id="sid3511217337089652916">
+        <div class="imageWithBorder">
+          <img src="./images/F_SimulinkVerification_TC3.png" />
+        </div>
+        <div class="imagecaption">
+          <p class="caption">
+            <b>Figure
+            5-E: </b>Optimization of test case 3<a href="http://127.0.0.1:63320/node?ref=r%3A533df91c-380e-4a42-8d18-d62b7b48aa44%28CollisionWarningSystem.CWS%29%2F6527040159285909653" class="originalNode" title="open in MPS"></a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

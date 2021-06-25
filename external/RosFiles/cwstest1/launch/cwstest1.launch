@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launch>
+  <arg name="simTime"/>
+  <node name="target" output="log" pkg="target" type="node">
+    <param name="speed" type="double" value="10"/>
+    <param name="position" type="double" value="500"/>
+  </node>
+  <node name="controller" output="screen" pkg="controller" type="controller_node">
+    <param name="detection_range" type="double" value="150"/>
+    <param name="driver_reaction_time" type="double" value="1.8"/>
+  </node>
+  <node name="vehicle_dynamics" output="log" pkg="vehicle_dynamics" type="vehicle_dynamics_node">
+    <param name="speed" type="double" value="0"/>
+    <param name="position" type="double" value="0"/>
+    <param name="friction_coefficient" type="double" value="0.5"/>
+  </node>
+  <node name="cwstest1" output="screen" pkg="cwstest1" required="true" type="cwstest1_node">
+    <param name="simTime" type="double" value="$(arg simTime)"/>
+  </node>
+</launch>
